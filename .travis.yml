@@ -18,10 +18,11 @@ env:
 language: python
 services: docker
 os: linux
-arch: arm64-graviton2
+#arch: arm64-graviton2
+arch: arm64
 dist: focal
-virt: vm
-group: edge
+#virt: vm
+#group: edge
 
 jobs:
   exclude:
