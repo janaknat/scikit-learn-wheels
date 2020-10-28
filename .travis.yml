@@ -29,19 +29,51 @@ jobs:
       # Exclude the default Python 3.5 build
       - python: 3.5
   include:
-    - os: linux
+    - stage: Build wheels
+      os: linux
       env:
         - MB_PYTHON_VERSION=3.6
         - NIGHTLY_BUILD="true"
+      workspaces:
+        create:
+          name: ws1
+          paths:
+            - wheelhouse
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - NIGHTLY_BUILD="true"
+      workspaces:
+        create:
+          name: ws2
+          paths:
+            - wheelhouse
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
         - NIGHTLY_BUILD="true"
+      workspaces:
+        create:
+          name: ws3
+          paths:
+            - wheelhouse
 
+   - stage: Test wheels
+     arch: arm64
+     workspaces:
+        use: ws1
+     install:
+        echo "Testing 3.5 wheel"
+   - arch: arm64
+     workspaces:
+        use: ws2
+     install:
+        echo "Testing 3.6 wheel"
+   - arch: arm64
+     workspaces:
+        use: ws3
+     install:
+        echo "Testing 3.7 wheel"
 before_install:
     - if [ "$TRAVIS_BRANCH" == "master" ]; then
           CONTAINER="pre-release";
