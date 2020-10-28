@@ -34,29 +34,41 @@ jobs:
       env:
         - MB_PYTHON_VERSION=3.6
         - NIGHTLY_BUILD="true"
+      script:
+        - echo "Building 3.5 wheel"
       workspaces:
         create:
           name: ws1
           paths:
             - wheelhouse
+      after_success:
+        - echo "Not uploading"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - NIGHTLY_BUILD="true"
+      script:
+        - echo "Building 3.6 wheel"
       workspaces:
         create:
           name: ws2
           paths:
             - wheelhouse
+      after_success:
+        - echo "Not uploading"
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
         - NIGHTLY_BUILD="true"
+      script:
+        - echo "Building 3.6 wheel"
       workspaces:
         create:
           name: ws3
           paths:
             - wheelhouse
+      after_success:
+        - echo "Not uploading"
 
     - stage: Test wheels
       arch: arm64
