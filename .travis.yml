@@ -74,11 +74,13 @@ jobs:
          use: ws1
       install:
          echo "Testing 3.5 wheel"
-    - workspaces:
+    - name: arm64-3.6-wheel
+      workspaces:
          use: ws2
       install:
          echo "Testing 3.6 wheel"
-    - workspaces:
+    - name: arm64-3.7-wheel
+      workspaces:
          use: ws3
       install:
          echo "Testing 3.7 wheel"
